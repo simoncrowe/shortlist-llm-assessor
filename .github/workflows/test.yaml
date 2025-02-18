@@ -1,0 +1,23 @@
+name: Run automated tests
+run-name: Running tests
+on: [push]
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'poetry'
+      - name: Install python dependencies
+        run: poetry install --with=dev
+      - name: flake8 linting
+        run: poetry run flake8 --ignore=E501
+      - name: Check types with mypy
+        run: poetry run mypy .
+      - name: Test with pytest
+        run: poetry run pytest
