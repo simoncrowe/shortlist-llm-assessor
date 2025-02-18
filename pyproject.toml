@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "shortlist-llm-assessor"
+version = "0.1.0"
+description = "Instructs LLMs to forward appropriate profiles to a notifier"
+authors = ["Simon Crowe <simon.r.crowe@protonmail.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.13"
+structlog = ">=24.4.0"
+transformers = ">=4.43.0"
+requests = ">=2.32.3"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
