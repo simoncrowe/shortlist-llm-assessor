@@ -3,8 +3,9 @@ import os
 import re
 
 import requests
-import transformers
+import structlog
 import torch
+import transformers
 
 logger = structlog.getLogger(__name__)
 structlog.configure(processors=[structlog.processors.JSONRenderer()])
@@ -18,7 +19,7 @@ def main():
 
     with open(profile_path, "r") as file_obj:
         profile = json.load(file_obj)
-    
+
     pipeline = transformers.pipeline(
         "text-generation",
         model="meta-llama/Llama-3.3-70B-Instruct",
@@ -30,23 +31,23 @@ def main():
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": profile["text"]},
     ]
-    
-    logger.debug("Running LLM inference", 
+
+    logger.debug("Running LLM inference",
                  system_prompt=system_prompt,
                  positive_regex=positive_regex,
                  user_prompt=profile["text"])
 
     outputs = pipeline(messages, max_new_tokens=8)
 
-    positive_pattern = re.compile(positive_regex)    
+    positive_pattern = re.compile(positive_regex)
     output = outputs[0]["generated_text"][-1]
-    
+
     if re.fullmatch(positive_pattern, output):
-        logger.info("Profile ACCEPTED by assessor", **profile["metadata"])        
+        logger.info("Profile ACCEPTED by assessor", **profile["metadata"])
         resp = requests.post(notify_url, json=profile)
         resp.raise_for_status()
     else:
-        logger.info("Profile REJECTED by assessor", **profile["metadata"])        
+        logger.info("Profile REJECTED by assessor", **profile["metadata"])
 
 
 if __name__ == "__main__":
