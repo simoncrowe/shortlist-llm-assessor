@@ -28,7 +28,7 @@ def main():
 
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": profile["text"]
+        {"role": "user", "content": profile["text"]},
     ]
     
     logger.debug("Running LLM inference", 
