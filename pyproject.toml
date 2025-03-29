@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "llm-assessor"
+version = "0.1.0"
+description = "Instructs LLMs to forward appropriate profiles to a notifier"
+authors = ["Simon Crowe <simon.r.crowe@protonmail.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.13"
+structlog = ">=24.4.0"
+transformers = ">=4.43.0"
+requests = ">=2.32.3"
+mypy = ">=1.15.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.3.4"
+flake8 = ">=7.1.1"
+types-requests = ">=2.32.0.20250328"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
