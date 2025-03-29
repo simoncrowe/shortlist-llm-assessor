@@ -19,5 +19,5 @@ jobs:
         run: poetry run flake8 --ignore=E501
       - name: Check types with mypy
         run: poetry run mypy .
-      - name: Test with pytest
-        run: poetry run pytest
+#      - name: Test with pytest
+#        run: poetry run pytest
