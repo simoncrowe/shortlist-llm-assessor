@@ -1,8 +1,8 @@
-FROM python:3.13-slim
+FROM pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime@sha256:77f17f843507062875ce8be2a6f76aa6aa3df7f9ef1e31d9d7432f4b0f563dee
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y curl
+    apt-get install -y curl build-essential
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
