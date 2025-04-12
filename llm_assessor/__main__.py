@@ -9,6 +9,7 @@ import transformers
 
 logger = structlog.getLogger(__name__)
 structlog.configure(processors=[structlog.processors.JSONRenderer()])
+transformers.logging.set_verbosity_debug()
 
 
 def main():
