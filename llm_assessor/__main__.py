@@ -22,13 +22,14 @@ def main():
     with open(config_path, "r") as file_obj:
         config = json.load(file_obj)
 
-    pipeline = transformers.pipeline(
-        "text-generation",
-        model="meta-llama/Llama-3.3-70B-Instruct",
-        model_kwargs={"torch_dtype": torch.bfloat16,
-                      "token": config["accessToken"]},
-        device_map="auto",
+    model = transformers.AutoModel.from_pretrained(
+        "meta-llama/Llama-3.3-70B-Instruct",
+        token=config["accessToken"],
+        torch_dtype=torch.bfloat16,
     )
+    pipeline = transformers.pipeline("text-generation",
+                                     model=model,
+                                     device_map="auto")
 
     messages = [
         {"role": "system", "content": config["systemPrompt"]},
