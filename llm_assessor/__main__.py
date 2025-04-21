@@ -13,9 +13,7 @@ transformers.logging.set_verbosity_debug()
 
 
 def main():
-    # Setting cache location to ephemeral volume
-    os.environ["HF_HOME"] = "/tmp/transformers-cache"
-
+    os.environ["HF_HOME"] = os.getenv("CACHE_DIR")
     profile_path = os.getenv("PROFILE_PATH")
     config_path = os.getenv("CONFIG_PATH")
     notify_url = os.getenv("NOTIFIER_URL")
