@@ -5,7 +5,10 @@ import re
 import requests
 import structlog
 import torch
-import transformers
+
+# Update the home dir before importing the huggingface lib
+os.environ["HF_HOME"] = os.environ["CACHE_DIR"]   # noqa type
+import transformers  # noqa
 
 logger = structlog.getLogger(__name__)
 structlog.configure(processors=[structlog.processors.JSONRenderer()])
@@ -13,7 +16,6 @@ transformers.logging.set_verbosity_debug()
 
 
 def main():
-    os.environ["HF_HOME"] = os.getenv("CACHE_DIR")
     profile_path = os.getenv("PROFILE_PATH")
     config_path = os.getenv("CONFIG_PATH")
     notify_url = os.getenv("NOTIFIER_URL")
