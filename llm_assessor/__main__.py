@@ -14,6 +14,8 @@ logger = structlog.getLogger(__name__)
 structlog.configure(processors=[structlog.processors.JSONRenderer()])
 transformers.logging.set_verbosity_debug()
 
+MODEL_ID = "meta-llama/Llama-3.3-70B-Instruct"
+
 
 def main():
     profile_path = os.getenv("PROFILE_PATH")
@@ -27,12 +29,14 @@ def main():
         config = json.load(file_obj)
 
     model = transformers.AutoModel.from_pretrained(
-        "meta-llama/Llama-3.3-70B-Instruct",
-        token=config["accessToken"],
-        torch_dtype=torch.bfloat16,
+        MODEL_ID, token=config["accessToken"], torch_dtype=torch.bfloat16,
+    )
+    tokenizer = transformers.AutoTokenizer.from_pretrained(
+        MODEL_ID, token=config["accessToken"]
     )
     pipeline = transformers.pipeline("text-generation",
                                      model=model,
+                                     tokenizer=tokenizer,
                                      device_map="auto")
 
     messages = [
