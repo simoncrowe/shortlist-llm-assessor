@@ -68,6 +68,8 @@ def main():
 
     outputs = pipeline(messages, max_new_tokens=8)
 
+    logger.debug("Got LLM outputs", outputs=outputs)
+
     positive_pattern = re.compile(config["llmPositiveResponseRegex"])
     output = outputs[0]["generated_text"][-1]
 
