@@ -6,10 +6,9 @@ import sys
 
 import requests
 import structlog
-import torch
 
 CACHE_DIR = os.environ["CACHE_DIR"]
-MODEL_ID = "tiiuae/Falcon3-7B-Instruct"
+MODEL_ID = "Qwen2.5-7B-Instruct"
 MODEL_NAME = MODEL_ID.split("/")[1]
 
 # Update the home dir before importing the huggingface lib
@@ -46,7 +45,7 @@ def main():
         config = json.load(file_obj)
 
     model = transformers.AutoModelForCausalLM.from_pretrained(
-        MODEL_ID, token=config["accessToken"], torch_dtype=torch.bfloat16,
+        MODEL_ID, token=config["accessToken"]
     )
     tokenizer = transformers.AutoTokenizer.from_pretrained(
         MODEL_ID, token=config["accessToken"]
