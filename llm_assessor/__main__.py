@@ -1,6 +1,8 @@
 import json
+import logging
 import os
 import re
+import sys
 
 import requests
 import structlog
@@ -15,9 +17,21 @@ os.environ["HF_HOME"] = os.path.join(CACHE_DIR, MODEL_NAME)  # noqa type
 
 import transformers  # noqa
 
-logger = structlog.getLogger(__name__)
-structlog.configure(processors=[structlog.processors.JSONRenderer()])
+logging.basicConfig(
+    format="%(message)s",
+    stream=sys.stdout,
+    level=logging.DEBUG,
+)
+structlog.configure(
+    processors=[
+        structlog.processors.JSONRenderer(),
+        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.processors.add_log_level,
+    ],
+    logger_factory=structlog.stdlib.LoggerFactory(),
+)
 transformers.logging.set_verbosity_debug()
+logger = structlog.get_logger(module=__name__)
 
 
 def main():
@@ -54,7 +68,7 @@ def main():
 
     outputs = pipeline(messages, max_new_tokens=8)
 
-    positive_pattern = re.compile(config["positiveRegex"])
+    positive_pattern = re.compile(config["llmPositiveResponseRegex"])
     output = outputs[0]["generated_text"][-1]
 
     if re.fullmatch(positive_pattern, output):
