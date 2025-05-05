@@ -6,15 +6,18 @@ import requests
 import structlog
 import torch
 
+CACHE_DIR = os.environ["CACHE_DIR"]
+MODEL_ID = "tiiuae/Falcon3-7B-Instruct"
+MODEL_NAME = MODEL_ID.split("/")[1]
+
 # Update the home dir before importing the huggingface lib
-os.environ["HF_HOME"] = os.environ["CACHE_DIR"]   # noqa type
+os.environ["HF_HOME"] = os.path.join(CACHE_DIR, MODEL_NAME)  # noqa type
+
 import transformers  # noqa
 
 logger = structlog.getLogger(__name__)
 structlog.configure(processors=[structlog.processors.JSONRenderer()])
 transformers.logging.set_verbosity_debug()
-
-MODEL_ID = "tiiuae/Falcon3-7B-Instruct"
 
 
 def main():
