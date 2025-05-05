@@ -63,7 +63,7 @@ def main():
 
     logger.debug("Running LLM inference",
                  system_prompt=config["llmSystemPrompt"],
-                 positive_regex=config["positiveRegex"],
+                 positive_regex=config["llmPositiveResponseRegex"],
                  user_prompt=profile["text"])
 
     outputs = pipeline(messages, max_new_tokens=8)
