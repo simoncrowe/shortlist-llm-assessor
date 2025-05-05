@@ -43,7 +43,7 @@ def main():
                                      device_map="auto")
 
     messages = [
-        {"role": "system", "content": config["systemPrompt"]},
+        {"role": "system", "content": config["llmSystemPrompt"]},
         {"role": "user", "content": profile["text"]},
     ]
 
