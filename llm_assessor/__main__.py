@@ -24,9 +24,9 @@ logging.basicConfig(
 )
 structlog.configure(
     processors=[
-        structlog.processors.JSONRenderer(),
         structlog.processors.TimeStamper(fmt="iso"),
         structlog.processors.add_log_level,
+        structlog.processors.JSONRenderer(),
     ],
     logger_factory=structlog.stdlib.LoggerFactory(),
 )
