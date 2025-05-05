@@ -8,7 +8,7 @@ import requests
 import structlog
 
 CACHE_DIR = os.environ["CACHE_DIR"]
-MODEL_ID = "Qwen2.5-7B-Instruct"
+MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
 MODEL_NAME = MODEL_ID.split("/")[1]
 
 # Update the home dir before importing the huggingface lib
