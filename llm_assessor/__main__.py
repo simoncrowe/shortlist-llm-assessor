@@ -31,7 +31,7 @@ def main():
     with open(config_path, "r") as file_obj:
         config = json.load(file_obj)
 
-    model = transformers.AutoModel.from_pretrained(
+    model = transformers.AutoModelForCausalLM.from_pretrained(
         MODEL_ID, token=config["accessToken"], torch_dtype=torch.bfloat16,
     )
     tokenizer = transformers.AutoTokenizer.from_pretrained(
