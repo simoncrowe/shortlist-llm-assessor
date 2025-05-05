@@ -48,7 +48,7 @@ def main():
     ]
 
     logger.debug("Running LLM inference",
-                 system_prompt=config["systemPrompt"],
+                 system_prompt=config["llmSystemPrompt"],
                  positive_regex=config["positiveRegex"],
                  user_prompt=profile["text"])
 
