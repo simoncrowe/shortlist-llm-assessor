@@ -14,7 +14,7 @@ logger = structlog.getLogger(__name__)
 structlog.configure(processors=[structlog.processors.JSONRenderer()])
 transformers.logging.set_verbosity_debug()
 
-MODEL_ID = "meta-llama/Llama-3.3-70B-Instruct"
+MODEL_ID = "tiiuae/Falcon3-7B-Instruct"
 
 
 def main():
