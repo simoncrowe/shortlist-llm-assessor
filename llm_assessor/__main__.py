@@ -71,7 +71,7 @@ def main():
     logger.debug("Got LLM outputs", outputs=outputs)
 
     positive_pattern = re.compile(config["llmPositiveResponseRegex"])
-    output = outputs[0]["generated_text"][-1]
+    output = outputs[0]["generated_text"][-1]["content"]
 
     if re.fullmatch(positive_pattern, output):
         logger.info("Profile ACCEPTED by assessor", **profile["metadata"])
